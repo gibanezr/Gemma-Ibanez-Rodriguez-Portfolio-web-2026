@@ -268,16 +268,28 @@ footer small{display:block;margin-top:1rem;opacity:.75}
     order: 2;
   }
 }
-/* Texto justificado sin cortar palabras con guiones */
+
+/* Textos de los proyectos justificados en todas las pantallas */
 .project .info p {
+text-align: justify;
+hyphens: none;
+-webkit-hyphens: none;
+}
+/* Sobre mí: primera frase sin justificar */
+#sobre-mi p:first-of-type {
+  text-align: left;
+}
+
+/* Sobre mí: resto de los párrafos justificados en ordenador */
+#sobre-mi p:not(:first-of-type) {
   text-align: justify;
   hyphens: none;
   -webkit-hyphens: none;
 }
 
-/* Móvil: texto alineado a la izquierda */
+/* En móviles, todo el texto alineado a la izquierda */
 @media (max-width: 600px) {
-  .project .info p {
+  #sobre-mi p {
     text-align: left;
   }
 }
