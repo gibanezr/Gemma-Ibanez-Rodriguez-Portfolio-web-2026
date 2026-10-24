@@ -106,9 +106,178 @@ footer small{display:block;margin-top:1rem;opacity:.75}
   border-radius: 3px;
 }
 
+/* VINOS: mantener imagen principal y texto en paralelo */
+@media (min-width: 900px) {
+  #p2 .p-body {
+    grid-template-columns: 5fr 7fr;
+    align-items: start;
+    gap: 3.5rem;
+  }
+}
+
+/* VINOS: galería con imágenes de altura uniforme */
+#p2 .gal .th {
+  height: 320px;
+  overflow: hidden;
+}
+
 #p2 .gal .th img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* VINOS: adaptación a móvil */
+@media (max-width: 600px) {
+  #p2 .gal {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+
+  #p2 .gal .th {
+    height: 240px;
+  }
+}
+/* =========================
+   IBERIA (p5)
+   ========================= */
+
+/* Póster y portada del CD en paralelo */
+#p5 .iberia-principales {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+#p5 .iberia-principales .th {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+#p5 .iberia-principales .th img {
   display: block;
   width: 100%;
   height: auto;
-  object-fit: contain;
+}
+
+/* Galería secundaria: 3 columnas en escritorio */
+
+/* IBERIA: dos imágenes principales */
+#p5 .iberia-principales {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+#p5 .iberia-principales .th {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+#p5 .iberia-principales .th img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* IBERIA: galería secundaria */
+#p5 .iberia-gal {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+#p5 .iberia-gal .th {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+#p5 .iberia-gal .th img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Dos imágenes: cada una ocupa la mitad */
+#p5 .iberia-gal .dos-columnas {
+  grid-column: span 3;
+}
+
+/* Tres imágenes: cada una ocupa un tercio */
+#p5 .iberia-gal .tres-columnas {
+  grid-column: span 2;
+}
+
+/* Móvil */
+@media (max-width: 600px) {
+  #p5 .iberia-gal {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+
+  #p5 .iberia-gal .dos-columnas,
+  #p5 .iberia-gal .tres-columnas {
+    grid-column: span 1;
+  }
+}
+
+
+/* Adaptación para móviles */
+@media (max-width: 600px) {
+  #p5 .iberia-principales {
+    gap: 0.65rem;
+  }
+
+  #p5 .iberia-gal {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+}
+
+/* Alternar la posición del texto y la imagen en los proyectos */
+@media (min-width: 900px) {
+  #p1 .p-body,
+  #p3 .p-body,
+  #p5 .p-body {
+    grid-template-columns: 5fr 7fr;
+  }
+
+  #p1 .info,
+  #p3 .info,
+  #p5 .info {
+    order: 0;
+  }
+
+  #p2 .p-body,
+  #p4 .p-body,
+  #p6 .p-body {
+    grid-template-columns: 7fr 5fr;
+  }
+
+  #p2 .info,
+  #p4 .info,
+  #p6 .info {
+    order: 2;
+  }
+}
+/* Texto justificado sin cortar palabras con guiones */
+.project .info p {
+  text-align: justify;
+  hyphens: none;
+  -webkit-hyphens: none;
+}
+
+/* Móvil: texto alineado a la izquierda */
+@media (max-width: 600px) {
+  .project .info p {
+    text-align: left;
+  }
 }
