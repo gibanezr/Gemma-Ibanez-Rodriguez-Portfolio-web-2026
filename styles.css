@@ -54,7 +54,7 @@ nav ul.open{display:flex}nav ul a{display:block;padding:.6rem 0}}
 /* contacto */
 footer{background:var(--yellow);color:#1D1D1B;padding:4.5rem 0 4rem;margin-top:1rem}
 footer h2{font:400 clamp(3.2rem,9vw,6rem)/.9 var(--serif);margin:0 0 1.5rem;letter-spacing:-.02em}
-footer .wrap{max-width:none;padding:0 clamp(1.5rem,4vw,1.5rem)}
+footer .wrap{max-width:none;padding:0;padding-left:3.3rem;padding-right:1.5rem}
 footer .links{display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:1rem;font-weight:500}
 footer small{display:block;margin-top:1rem;opacity:.75}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
