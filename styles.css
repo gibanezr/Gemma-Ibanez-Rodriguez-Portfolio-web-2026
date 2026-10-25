@@ -690,14 +690,22 @@ nav ul .sep {
     border-radius: 0;
 }
 
+#p6 .stereo-logo-dark {
+    display: none;
+}
+
 /* En oscuro, el escudo pasa a blanco y ESTÉREO a su amarillo corporativo. */
 @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) #p1 .logo-main--city img {
         filter: brightness(0) invert(1);
     }
 
-    :root:not([data-theme="light"]) #p6 .logo-main--stereo img {
-        filter: brightness(0) saturate(100%) invert(78%) sepia(94%) saturate(1300%) hue-rotate(354deg) brightness(101%) contrast(105%);
+    :root:not([data-theme="light"]) #p6 .stereo-logo-light {
+        display: none;
+    }
+
+    :root:not([data-theme="light"]) #p6 .stereo-logo-dark {
+        display: block;
     }
 }
 
@@ -705,8 +713,12 @@ nav ul .sep {
     filter: brightness(0) invert(1);
 }
 
-:root[data-theme="dark"] #p6 .logo-main--stereo img {
-    filter: brightness(0) saturate(100%) invert(78%) sepia(94%) saturate(1300%) hue-rotate(354deg) brightness(101%) contrast(105%);
+:root[data-theme="dark"] #p6 .stereo-logo-light {
+    display: none;
+}
+
+:root[data-theme="dark"] #p6 .stereo-logo-dark {
+    display: block;
 }
 
 
