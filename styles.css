@@ -635,10 +635,12 @@ nav ul .sep {
 }
 
 .project-more {
+    display: grid;
     margin: 0 0 1rem;
 }
 
 .project-more summary {
+    grid-row: 1;
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
@@ -658,6 +660,16 @@ nav ul .sep {
     color: var(--muted);
     font-size: 1.15rem;
     line-height: 1;
+}
+
+.project-more[open] > .project-more-content {
+    grid-row: 1;
+    padding-top: 0;
+}
+
+.project-more[open] > summary {
+    grid-row: 2;
+    margin-top: 0.75rem;
 }
 
 .project-more[open] summary::after {
