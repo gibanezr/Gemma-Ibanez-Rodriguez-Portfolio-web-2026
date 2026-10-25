@@ -750,6 +750,7 @@ footer .mail-actions {
 }
 
 footer .copy-email {
+    position: relative;
     padding: 0.35rem 0.75rem;
     border: 1px solid currentColor;
     border-radius: 99px;
@@ -770,6 +771,22 @@ footer .copy-email-status {
     font-size: 0.85rem;
 }
 
+footer .copy-email.copied::after {
+    content: "✦";
+    position: absolute;
+    top: -0.55rem;
+    right: -0.65rem;
+    color: #806900;
+    font-size: 1.1rem;
+    animation: copy-email-sparkle 520ms ease-out both;
+}
+
+@keyframes copy-email-sparkle {
+    0% { opacity: 0; transform: scale(0.35) rotate(-25deg); }
+    45% { opacity: 1; transform: scale(1.25) rotate(12deg); }
+    100% { opacity: 0.9; transform: scale(1) rotate(0); }
+}
+
 footer .contact-cta {
     display: inline-grid;
     grid-template-columns: minmax(0, 1fr);
@@ -785,6 +802,33 @@ footer .mail-actions {
     width: 100%;
 }
 
+footer .links a {
+    position: relative;
+    text-decoration: none;
+}
+
+footer .links .back-to-top {
+    margin-left: auto;
+}
+
+footer .links a::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: -0.2rem;
+    left: 0;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 220ms ease;
+}
+
+footer .links a:hover::after,
+footer .links a:focus-visible::after {
+    transform: scaleX(1);
+}
+
 footer .links {
     display: flex;
     gap: 1.5rem;
@@ -797,6 +841,36 @@ footer .links {
     footer .mail-actions {
         flex-direction: column;
         align-items: flex-start;
+    }
+}
+
+.next-project {
+    display: flex;
+    width: fit-content;
+    margin-left: auto;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 1.5rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.3em;
+    transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+
+.next-project:hover,
+.next-project:focus-visible {
+    color: var(--ink);
+    text-decoration-color: var(--yellow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    footer .links a::after,
+    footer .copy-email.copied::after,
+    .next-project {
+        transition: none;
+        animation: none;
     }
 }
 
@@ -890,17 +964,20 @@ footer small {
 }
 
 .th::after {
-    content: "⤢  Ampliar";
+    content: "⤢";
     position: absolute;
     right: 0.75rem;
     bottom: 0.75rem;
     z-index: 1;
-    padding: 0.35rem 0.65rem;
+    display: grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    place-items: center;
     border: 1px solid rgba(29, 29, 27, 0.14);
-    border-radius: 99px;
+    border-radius: 50%;
     background: var(--yellow);
     color: #1D1D1B;
-    font: 500 0.8rem/1.2 var(--sans);
+    font: 500 1.25rem/1 var(--sans);
     opacity: 0;
     pointer-events: none;
     transform: translateY(0.25rem);
