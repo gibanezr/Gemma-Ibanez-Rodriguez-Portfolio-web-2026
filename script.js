@@ -154,7 +154,6 @@ document.querySelectorAll(".v video").forEach((v) => {
 const lb = document.getElementById("lb");
 const li = lb.querySelector("img");
 const ct = lb.querySelector(".ct");
-const lbCaption = lb.querySelector(".lb-caption");
 
 let grp = [];
 let cur = 0;
@@ -246,7 +245,6 @@ function show(i) {
   const im = grp[cur].querySelector("img");
   li.src = im.currentSrc || im.src;
   li.alt = im.alt;
-  lbCaption.textContent = im.alt;
   ct.textContent = cur + 1 + " / " + grp.length;
 }
 
