@@ -23,12 +23,12 @@
   font: 500 0.95rem var(--sans);
   padding: 0.65rem 1rem;
   border: 1.5px solid var(--ink);
-  background: transparent;
-  color: var(--ink);
+  background: var(--yellow);
+  color: #1D1D1B;
   border-radius: 99px;
   cursor: pointer;
 }
-#cc button:hover { background: var(--ink); color: var(--bg); }
+#cc button:hover { background: #ece479; }
 @media (min-width: 700px) { #cc { left: 1.5rem; right: auto; } }
 
 /* Página cookies.html */
