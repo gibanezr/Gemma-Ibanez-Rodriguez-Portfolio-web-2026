@@ -1,295 +1,915 @@
-:root{--bg:#fcfcf0;--ink:#1D1D1B;--muted:#5d5b52;--yellow:#F4EE93;--line:#d9d4bd;--serif:"Instrument Serif",Georgia,serif;--sans:"Zalando Sans","Helvetica Neue",Arial,sans-serif;--logo:none;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1D1D1B;--ink:#F6F3E4;--muted:#b4b09c;--line:#3a3a35;--logo:invert(1)}}
-:root[data-theme="dark"]{--bg:#1D1D1B;--ink:#F6F3E4;--muted:#b4b09c;--line:#3a3a35;--logo:invert(1)}
-*,*::before,*::after{box-sizing:inherit}
-html{scroll-behavior:smooth;scroll-padding-top:6rem}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 1.02rem/1.65 var(--sans)}
-a{color:inherit}:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
-.wrap{max-width:1500px;margin:0 auto;padding:0 clamp(1.25rem,4vw,3rem)}
-/* menú */
-nav{position:fixed;inset:0 0 auto;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
-nav .wrap{display:flex;align-items:center;justify-content:space-between;height:8rem;max-width:none;  padding: 0 clamp(1rem, 2vw, 3rem) 0 clamp(2rem, 5vw, 1.5rem);
-}
-nav img{height:7.3rem;width:7.3rem;filter:var(--logo);display:block}
-nav ul{display:flex;gap:1.6rem;list-style:none;margin:0;padding:0;font-size:.92rem;font-weight:500}
-nav ul a{text-decoration:none;padding:.3rem 0;border-bottom:2px solid transparent}
-nav ul a:hover{border-color:var(--yellow)}
-nav ul .sep{width:1px;height:1.3rem;background:var(--line);align-self:center}
-#burger{display:none;background:none;border:1.5px solid var(--ink);color:var(--ink);border-radius:99px;padding:.35rem .9rem;font:500 .9rem var(--sans);cursor:pointer}
-@media(max-width:860px){#burger{display:block}
-nav .wrap{padding-left:1.25rem;padding-right:1.25rem;height:5.5rem}
-nav img{height:4.5rem;width:4.5rem}
-nav ul .sep{width:100%;height:1px;margin:.5rem 0}
-nav ul{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:.5rem 1.25rem 1rem;font-size:1.1rem}
-nav ul.open{display:flex}nav ul a{display:block;padding:.6rem 0}}
+/* ========================================
+   1. VARIABLES Y CONFIGURACIÓN GENERAL
+   ======================================== */
 
-/* portada */
-.hero{padding:9rem 0 2rem}
-.hero small{font-weight:500;letter-spacing:.08em;text-transform:uppercase;font-size:.8rem}
-.hero h1{font:400 clamp(3.4rem,11vw,9rem)/.95 var(--serif);letter-spacing:.04em;margin:1rem 0 3.5rem}
-.hero h1 em{font-style:italic;text-decoration:underline;text-decoration-color:var(--yellow);text-decoration-thickness:.11em;text-underline-offset:.06em;text-decoration-skip-ink:none}
-.hero p{font:italic 1.5rem/1.35 var(--serif);margin:0;letter-spacing:.04em}
-/* sobre mí */
-.about{border-top:1px solid var(--line);padding:3.5rem 0;display:grid;gap:2rem}
-.about h2,.info h3{font:400 1.05rem var(--sans);font-weight:600;margin:0 0 .6rem}
-.about p{margin:0 0 1rem;max-width:58ch}
-.facts{list-style:none;margin:0;padding:0;color:var(--muted);font-size:.95rem}
-.facts li{padding:.45rem 0;border-bottom:1px solid var(--line)}
-@media(min-width:900px){.about{grid-template-columns:5fr 7fr;gap:4rem}}
-/* proyectos */
-.project{border-top:1px solid var(--line);padding:4rem 0}
-.p-head{display:grid;gap:1.5rem;align-items:end;margin-bottom:2.5rem}
-.num{font:400 clamp(4rem,10vw,8rem)/.8 var(--serif)}
-.p-head h2{font:400 clamp(2rem,4.6vw,3.4rem)/1.05 var(--serif);margin:0 0 .6rem; letter-spacing:.04em;} 
-.p-head h2 span{font-style:italic;display:block;font-size:.55em;color:var(--muted);margin-top:.4rem;line-height:1.2;letter-spacing:.04em}
-.tags{display:flex;flex-wrap:wrap;gap:.5rem;font-size:.82rem;font-weight:500}
-.tags span{border:1.5px solid var(--ink);border-radius:99px;padding:.1rem .8rem}
-.tags .acad{background:var(--yellow);border-color:var(--ink);color:#1D1D1B}
-.p-body{display:grid;gap:2rem}
-.p-body img{width:100%;height:auto;display:block;border-radius:3px}
-.info p{margin:0 0 1rem;max-width:52ch}
-.info .dec{border-left:5px solid var(--yellow);padding-left:1rem;margin-top:1.4rem}
-.board{margin-top:2.5rem}.board img{width:100%;height:auto;display:block;border-radius:3px}
-.board p{font-size:.92rem;color:var(--muted);margin:.7rem 0 0;max-width:70ch}
-@media(min-width:900px){.p-head{grid-template-columns:auto 1fr auto;gap:3rem}.p-body{grid-template-columns:5fr 7fr;gap:3.5rem;align-items:start}
-.project:nth-of-type(even) .p-body{grid-template-columns:7fr 5fr}.project:nth-of-type(even) .info{order:2}}
-/* contacto */
-footer{background:var(--yellow);color:#1D1D1B;padding:4.5rem 0 4rem;margin-top:1rem}
-footer h2{font:400 clamp(3.2rem,9vw,6rem)/.9 var(--serif);margin:0 0 1.5rem;letter-spacing:-.02em}
-footer .wrap{max-width:none;padding:0;padding-left:3.3rem;padding-right:1.5rem}
-footer .links{display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:1rem;font-weight:500}
-footer small{display:block;margin-top:1rem;opacity:.75}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-.about .lead{font:italic 1.45rem/1.3 var(--serif);letter-spacing:.04em;max-width:none;text-wrap:balance;margin:0 0 1.5rem;color:var(--ink)}
-@media(min-width:900px){.about{grid-template-columns:6fr 6fr}}
-.about .cols{display:grid;gap:1.8rem;align-content:start}
-.facts-block h3{font:600 .8rem var(--sans);letter-spacing:.08em;text-transform:uppercase;margin:0 0 .5rem}
-.facts-block ul{list-style:none;margin:0;padding:0;color:var(--muted);font-size:.98rem}
-.facts-block li{padding:.4rem 0;border-bottom:1px solid var(--line)}.facts-block a{color:inherit}
-.contact{display:grid;gap:0 2rem;align-content:start}@media(min-width:700px){.contact{grid-template-columns:1fr 1fr}}
-@media(min-width:700px){.about .cols{grid-template-columns:1fr 1fr}.about .cols .facts-block:nth-child(3){grid-column:1/-1}}
-.vids{margin-top:3.5rem}.vids h3{font:400 clamp(1.8rem,3.4vw,2.6rem)/1.1 var(--serif);margin:0 0 1.2rem}
-.vgrid{display:grid;gap:1rem}.v{margin:0}
-.v video,.v .ph{width:100%;aspect-ratio:16/9;display:block;background:var(--ink);border-radius:3px;object-fit:contain}
-.v .ph{display:flex;align-items:center;justify-content:center;background:var(--line);color:var(--muted);font:500 .95rem var(--sans);text-align:center;padding:1rem}
-.v figcaption{font-size:.9rem;color:var(--muted);margin-top:.5rem}
-@media(min-width:900px){.vgrid{grid-template-columns:3fr 2fr}.v.big{grid-row:span 2}}
-.th{display:block;padding:0;border:0;background:none;cursor:zoom-in;width:100%}
-.th img{width:100%;height:auto;display:block;border-radius:3px;transition:opacity .2s}.th:hover img{opacity:.88}
-.gal{columns:3 240px;column-gap:1rem;margin-top:2.5rem}.gal .th{break-inside:avoid;margin:0 0 1rem}
-#lb{position:fixed;inset:0;z-index:50;background:rgba(18,18,16,.95);display:none;align-items:center;justify-content:center;padding:4rem 1rem 4.5rem}
-#lb.open{display:flex}#lb img{max-width:100%;max-height:100%;object-fit:contain;border-radius:3px}
-#lb button{position:absolute;background:rgba(246,243,228,.16);color:#F6F3E4;border:0;width:2.9rem;height:2.9rem;border-radius:50%;font-size:1.4rem;cursor:pointer}
-#lb button:hover{background:rgba(246,243,228,.32)}
-#lb .x{top:calc(.8rem + env(safe-area-inset-top,0px));right:1rem}#lb .pv{left:1rem;top:50%}#lb .nx{right:1rem;top:50%}
-#lb .ct{position:absolute;bottom:calc(1.2rem + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;color:#F6F3E4;font-size:.9rem}
-/* margen lateral portada y sobre mí (portátil, tablet y móvil) */
-@media(max-width:1500px){
-.hero,.about{padding-left:clamp(1.25rem,4vw,3rem);padding-right:clamp(1.25rem,4vw,3rem)}
-}
-/* Libros: galería en cuadrícula de 3x3 */
-#p4 .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;columns:auto}
-#p4 .gal .th{margin:0;aspect-ratio:1/1;overflow:hidden;border-radius:3px}
-#p4 .gal .th img{height:100%;object-fit:cover}
+:root {
+    --bg: #fcfcf0;
+    --ink: #1D1D1B;
+    --muted: #5d5b52;
+    --yellow: #F4EE93;
+    --line: #d9d4bd;
+    --serif: "Instrument Serif", Georgia, serif;
+    --sans: "Zalando Sans", "Helvetica Neue", Arial, sans-serif;
+    --logo: none;
 
-/* Vinos: galería en cuadrícula */
-#p2 .gal {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 1rem;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-#p2 .gal .th {
-  margin: 0;
-  overflow: hidden;
-  border-radius: 3px;
+/* Modo oscuro automático */
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --bg: #1D1D1B;
+        --ink: #F6F3E4;
+        --muted: #b4b09c;
+        --line: #3a3a35;
+        --logo: invert(1);
+    }
 }
 
-/* VINOS: mantener imagen principal y texto en paralelo */
+/* Modo oscuro seleccionado manualmente */
+
+:root[data-theme="dark"] {
+    --bg: #1D1D1B;
+    --ink: #F6F3E4;
+    --muted: #b4b09c;
+    --line: #3a3a35;
+    --logo: invert(1);
+}
+
+/* Configuración global */
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 400 1.02rem/1.65 var(--sans);
+}
+
+a {
+    color: inherit;
+}
+
+:focus-visible {
+    outline: 3px solid var(--yellow);
+    outline-offset: 3px;
+}
+
+.wrap {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 4vw, 3rem);
+}
+
+
+/* ========================================
+   2. MENÚ DE NAVEGACIÓN
+   ======================================== */
+
+nav {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 20;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    padding-top: env(safe-area-inset-top, 0px);
+}
+
+nav .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 8rem;
+    max-width: none;
+    padding: 0 clamp(1rem, 2vw, 3rem) 0 clamp(2rem, 5vw, 1.5rem);
+}
+
+nav img {
+    display: block;
+    width: 7.3rem;
+    height: 7.3rem;
+    filter: var(--logo);
+}
+
+nav ul {
+    display: flex;
+    gap: 1.6rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.92rem;
+    font-weight: 500;
+}
+
+nav ul a {
+    text-decoration: none;
+    padding: 0.3rem 0;
+    border-bottom: 2px solid transparent;
+}
+
+nav ul a:hover {
+    border-color: var(--yellow);
+}
+
+nav ul .sep {
+    width: 1px;
+    height: 1.3rem;
+    background: var(--line);
+    align-self: center;
+}
+
+#burger {
+    display: none;
+    background: none;
+    border: 1.5px solid var(--ink);
+    color: var(--ink);
+    border-radius: 99px;
+    padding: 0.35rem 0.9rem;
+    font: 500 0.9rem var(--sans);
+    cursor: pointer;
+}
+
+/* Menú para tablet y móvil */
+
+@media (max-width: 860px) {
+    #burger {
+        display: block;
+    }
+
+    nav .wrap {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+        height: 5.5rem;
+    }
+
+    nav img {
+        width: 4.5rem;
+        height: 4.5rem;
+    }
+
+    nav ul .sep {
+        width: 100%;
+        height: 1px;
+        margin: 0.5rem 0;
+    }
+
+    nav ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 0;
+        background: var(--bg);
+        border-bottom: 1px solid var(--line);
+        padding: 0.5rem 1.25rem 1rem;
+        font-size: 1.1rem;
+    }
+
+    nav ul.open {
+        display: flex;
+    }
+
+    nav ul a {
+        display: block;
+        padding: 0.6rem 0;
+    }
+}
+
+
+/* ========================================
+   3. PORTADA
+   ======================================== */
+
+.hero {
+    padding: 9rem 0 2rem;
+}
+
+.hero small {
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.hero h1 {
+    font: 400 clamp(3.4rem, 11vw, 9rem)/0.95 var(--serif);
+    letter-spacing: 0.04em;
+    margin: 1rem 0 3.5rem;
+}
+
+.hero h1 em {
+    font-style: italic;
+    text-decoration: underline;
+    text-decoration-color: var(--yellow);
+    text-decoration-thickness: 0.11em;
+    text-underline-offset: 0.06em;
+    text-decoration-skip-ink: none;
+}
+
+.hero p {
+    font: italic 1.5rem/1.35 var(--serif);
+    margin: 0;
+    letter-spacing: 0.04em;
+}
+
+
+/* ========================================
+   4. SOBRE MÍ
+   ======================================== */
+
+.about {
+    border-top: 1px solid var(--line);
+    padding: 3.5rem 0;
+    display: grid;
+    gap: 2rem;
+}
+
+.about h2,
+.info h3 {
+    font: 400 1.05rem var(--sans);
+    font-weight: 600;
+    margin: 0 0 0.6rem;
+}
+
+.about p {
+    margin: 0 0 1rem;
+    max-width: 58ch;
+}
+
+/* Frase destacada de presentación */
+
+.about .lead {
+    font: italic 1.45rem/1.3 var(--serif);
+    letter-spacing: 0.04em;
+    max-width: none;
+    text-wrap: balance;
+    margin: 0 0 1.5rem;
+    color: var(--ink);
+}
+
+/* Listas de información */
+
+.facts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+.facts li {
+    padding: 0.45rem 0;
+    border-bottom: 1px solid var(--line);
+}
+
+/* Columnas de formación, software y contacto */
+
+.about .cols {
+    display: grid;
+    gap: 1.8rem;
+    align-content: start;
+}
+
+.facts-block h3 {
+    font: 600 0.8rem var(--sans);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 0 0 0.5rem;
+}
+
+.facts-block ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    color: var(--muted);
+    font-size: 0.98rem;
+}
+
+.facts-block li {
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.facts-block a {
+    color: inherit;
+}
+
+/* Enlaces de contacto */
+
+.contact {
+    display: grid;
+    gap: 0 2rem;
+    align-content: start;
+}
+
+/* Adaptación a escritorio */
+
 @media (min-width: 900px) {
-  #p2 .p-body {
-    grid-template-columns: 5fr 7fr;
-    align-items: start;
-    gap: 3.5rem;
-  }
+    .about {
+        grid-template-columns: 6fr 6fr;
+        gap: 4rem;
+    }
 }
 
-/* VINOS: galería con imágenes de altura uniforme */
+/* Distribución de columnas en tablet y escritorio */
+
+@media (min-width: 700px) {
+    .contact {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .about .cols {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .about .cols .facts-block:nth-child(3) {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Márgenes laterales de portada y sobre mí */
+
+@media (max-width: 1500px) {
+    .hero,
+    .about {
+        padding-left: clamp(1.25rem, 4vw, 3rem);
+        padding-right: clamp(1.25rem, 4vw, 3rem);
+    }
+}
+
+/* Alineación de los textos de sobre mí */
+
+#sobre-mi p:first-of-type {
+    text-align: left;
+}
+
+#sobre-mi p:not(:first-of-type) {
+    text-align: justify;
+    hyphens: none;
+    -webkit-hyphens: none;
+}
+
+@media (max-width: 600px) {
+    #sobre-mi p {
+        text-align: left;
+    }
+}
+/* ========================================
+   5. PROYECTOS
+   ======================================== */
+
+.project {
+    border-top: 1px solid var(--line);
+    padding: 4rem 0;
+}
+
+/* Cabecera de los proyectos */
+
+.p-head {
+    display: grid;
+    gap: 1.5rem;
+    align-items: end;
+    margin-bottom: 2.5rem;
+}
+
+.num {
+    font: 400 clamp(4rem, 10vw, 8rem)/0.8 var(--serif);
+}
+
+.p-head h2 {
+    font: 400 clamp(2rem, 4.6vw, 3.4rem)/1.05 var(--serif);
+    margin: 0 0 0.6rem;
+    letter-spacing: 0.04em;
+}
+
+.p-head h2 span {
+    display: block;
+    font-size: 0.55em;
+    font-style: italic;
+    color: var(--muted);
+    margin-top: 0.4rem;
+    line-height: 1.2;
+    letter-spacing: 0.04em;
+}
+
+/* Etiquetas */
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+}
+
+.tags span {
+    border: 1.5px solid var(--ink);
+    border-radius: 99px;
+    padding: 0.1rem 0.8rem;
+}
+
+.tags .acad {
+    background: var(--yellow);
+    border-color: var(--ink);
+    color: #1D1D1B;
+}
+
+/* Distribución del contenido */
+
+.p-body {
+    display: grid;
+    gap: 2rem;
+}
+
+.p-body img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 3px;
+}
+
+/* Texto descriptivo */
+
+.info p {
+    margin: 0 0 1rem;
+    max-width: 52ch;
+}
+
+.info .dec {
+    border-left: 5px solid var(--yellow);
+    padding-left: 1rem;
+    margin-top: 1.4rem;
+}
+
+/* Panel de imágenes y pie de imagen */
+
+.board {
+    margin-top: 2.5rem;
+}
+
+.board img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 3px;
+}
+
+.board p {
+    font-size: 0.92rem;
+    color: var(--muted);
+    margin: 0.7rem 0 0;
+    max-width: 70ch;
+}
+
+
+/* ========================================
+   6. CONTACTO
+   ======================================== */
+
+footer {
+    background: var(--yellow);
+    color: #1D1D1B;
+    padding: 4.5rem 0 4rem;
+    margin-top: 1rem;
+}
+
+footer h2 {
+    font: 400 clamp(3.2rem, 9vw, 6rem)/0.9 var(--serif);
+    margin: 0 0 1.5rem;
+    letter-spacing: -0.02em;
+}
+
+footer .wrap {
+    max-width: none;
+    padding: 0 1.5rem 0 3.3rem;
+}
+
+footer .links {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    font-weight: 500;
+}
+
+footer small {
+    display: block;
+    margin-top: 1rem;
+    opacity: 0.75;
+}
+
+
+/* ========================================
+   7. VÍDEOS
+   ======================================== */
+
+.vids {
+    margin-top: 3.5rem;
+}
+
+.vids h3 {
+    font: 400 clamp(1.8rem, 3.4vw, 2.6rem)/1.1 var(--serif);
+    margin: 0 0 1.2rem;
+}
+
+.vgrid {
+    display: grid;
+    gap: 1rem;
+}
+
+.v {
+    margin: 0;
+}
+
+/* Vídeos y espacios reservados */
+
+.v video,
+.v .ph {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--ink);
+    border-radius: 3px;
+    object-fit: contain;
+}
+
+.v .ph {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--line);
+    color: var(--muted);
+    font: 500 0.95rem var(--sans);
+    text-align: center;
+    padding: 1rem;
+}
+
+/* Pie de vídeo */
+
+.v figcaption {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+}
+
+
+/* ========================================
+   8. GALERÍAS GENERALES
+   ======================================== */
+
+/* Botones que contienen las imágenes */
+
+.th {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: zoom-in;
+}
+
+/* Imágenes de las galerías */
+
+.th img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 3px;
+    transition: opacity 0.2s;
+}
+
+.th:hover img {
+    opacity: 0.88;
+}
+
+/* Galería general */
+
+.gal {
+    columns: 3 240px;
+    column-gap: 1rem;
+    margin-top: 2.5rem;
+}
+
+.gal .th {
+    break-inside: avoid;
+    margin: 0 0 1rem;
+}
+
+
+/* ========================================
+   9. VISOR DE IMÁGENES AMPLIADAS
+   ======================================== */
+
+#lb {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: rgba(18, 18, 16, 0.95);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1rem 4.5rem;
+}
+
+/* Visor abierto */
+
+#lb.open {
+    display: flex;
+}
+
+/* Imagen ampliada */
+
+#lb img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 3px;
+}
+
+/* Botones del visor */
+
+#lb button {
+    position: absolute;
+    width: 2.9rem;
+    height: 2.9rem;
+    background: rgba(246, 243, 228, 0.16);
+    color: #F6F3E4;
+    border: 0;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+#lb button:hover {
+    background: rgba(246, 243, 228, 0.32);
+}
+
+/* Cerrar */
+
+#lb .x {
+    top: calc(0.8rem + env(safe-area-inset-top, 0px));
+    right: 1rem;
+}
+
+/* Imagen anterior */
+
+#lb .pv {
+    left: 1rem;
+    top: 50%;
+}
+
+/* Imagen siguiente */
+
+#lb .nx {
+    right: 1rem;
+    top: 50%;
+}
+
+/* Contador de imágenes */
+
+#lb .ct {
+    position: absolute;
+    bottom: calc(1.2rem + env(safe-area-inset-bottom, 0px));
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #F6F3E4;
+    font-size: 0.9rem;
+}
+
+
+/* ========================================
+   10. PROYECTO LIBROS (P4)
+   ======================================== */
+
+#p4 .gal {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    columns: auto;
+}
+
+#p4 .gal .th {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 3px;
+    margin: 0;
+}
+
+#p4 .gal .th img {
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* ========================================
+   11. PROYECTO VINOS (P2)
+   ======================================== */
+
+/* Galería de cinco columnas */
+
+#p2 .gal {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1rem;
+}
+
 #p2 .gal .th {
-  height: 320px;
-  overflow: hidden;
+    margin: 0;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+/* Altura uniforme de las imágenes */
+
+#p2 .gal .th {
+    height: 320px;
 }
 
 #p2 .gal .th img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
-/* VINOS: adaptación a móvil */
+/* Adaptación a móvil */
+
 @media (max-width: 600px) {
-  #p2 .gal {
+    #p2 .gal {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.65rem;
+    }
+
+    #p2 .gal .th {
+        height: 240px;
+    }
+}
+
+
+/* ========================================
+   12. PROYECTO IBERIA (P5)
+   ======================================== */
+
+/* Póster y portada del CD */
+
+#p5 .iberia-principales {
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.65rem;
-  }
-
-  #p2 .gal .th {
-    height: 240px;
-  }
-}
-/* =========================
-   IBERIA (p5)
-   ========================= */
-
-/* Póster y portada del CD en paralelo */
-#p5 .iberia-principales {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-  align-items: start;
+    gap: 1rem;
+    align-items: start;
 }
 
 #p5 .iberia-principales .th {
-  display: block;
-  width: 100%;
-  min-width: 0;
-  margin: 0;
+    display: block;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
 }
 
 #p5 .iberia-principales .th img {
-  display: block;
-  width: 100%;
-  height: auto;
+    display: block;
+    width: 100%;
+    height: auto;
 }
 
-/* Galería secundaria: 3 columnas en escritorio */
+/* Galería secundaria */
 
-/* IBERIA: dos imágenes principales */
-#p5 .iberia-principales {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-  align-items: start;
-}
-
-#p5 .iberia-principales .th {
-  width: 100%;
-  min-width: 0;
-  margin: 0;
-}
-
-#p5 .iberia-principales .th img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-/* IBERIA: galería secundaria */
 #p5 .iberia-gal {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 1rem;
-  margin-top: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 2.5rem;
 }
 
 #p5 .iberia-gal .th {
-  width: 100%;
-  min-width: 0;
-  margin: 0;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
 }
 
 #p5 .iberia-gal .th img {
-  display: block;
-  width: 100%;
-  height: auto;
+    display: block;
+    width: 100%;
+    height: auto;
 }
 
-/* Dos imágenes: cada una ocupa la mitad */
+/* Distribución de las imágenes */
+
 #p5 .iberia-gal .dos-columnas {
-  grid-column: span 3;
+    grid-column: span 3;
 }
 
-/* Tres imágenes: cada una ocupa un tercio */
 #p5 .iberia-gal .tres-columnas {
-  grid-column: span 2;
+    grid-column: span 2;
 }
 
-/* Móvil */
+/* Adaptación a móvil */
+
 @media (max-width: 600px) {
-  #p5 .iberia-gal {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.65rem;
-  }
+    #p5 .iberia-principales {
+        gap: 0.65rem;
+    }
 
-  #p5 .iberia-gal .dos-columnas,
-  #p5 .iberia-gal .tres-columnas {
-    grid-column: span 1;
-  }
+    #p5 .iberia-gal {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.65rem;
+    }
+
+    #p5 .iberia-gal .dos-columnas,
+    #p5 .iberia-gal .tres-columnas {
+        grid-column: span 1;
+    }
 }
 
 
-/* Adaptación para móviles */
-@media (max-width: 600px) {
-  #p5 .iberia-principales {
-    gap: 0.65rem;
-  }
+/* ========================================
+   13. DISTRIBUCIÓN DE LOS PROYECTOS
+   ======================================== */
 
-  #p5 .iberia-gal {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.65rem;
-  }
-}
+/* Columnas de texto e imagen en escritorio */
 
-/* Alternar la posición del texto y la imagen en los proyectos */
 @media (min-width: 900px) {
-  #p1 .p-body,
-  #p3 .p-body,
-  #p5 .p-body {
-    grid-template-columns: 5fr 7fr;
-  }
+    .p-head {
+        grid-template-columns: auto 1fr auto;
+        gap: 3rem;
+    }
 
-  #p1 .info,
-  #p3 .info,
-  #p5 .info {
-    order: 0;
-  }
+    .p-body {
+        grid-template-columns: 5fr 7fr;
+        gap: 3.5rem;
+        align-items: start;
+    }
 
-  #p2 .p-body,
-  #p4 .p-body,
-  #p6 .p-body {
-    grid-template-columns: 7fr 5fr;
-  }
+    .project:nth-of-type(even) .p-body {
+        grid-template-columns: 7fr 5fr;
+    }
 
-  #p2 .info,
-  #p4 .info,
-  #p6 .info {
-    order: 2;
-  }
+    .project:nth-of-type(even) .info {
+        order: 2;
+    }
+
+    /* Ayuntamiento, Keith Haring e IBERIA */
+
+    #p1 .p-body,
+    #p3 .p-body,
+    #p5 .p-body {
+        grid-template-columns: 5fr 7fr;
+    }
+
+    #p1 .info,
+    #p3 .info,
+    #p5 .info {
+        order: 0;
+    }
+
+    /* Vinos, Libros y ESTÉREO */
+
+    #p2 .p-body,
+    #p4 .p-body,
+    #p6 .p-body {
+        grid-template-columns: 7fr 5fr;
+    }
+
+    #p2 .info,
+    #p4 .info,
+    #p6 .info {
+        order: 2;
+    }
 }
 
-/* Textos de los proyectos justificados en todas las pantallas */
+/* Mantener el texto de los proyectos justificado */
+
 .project .info p {
-text-align: justify;
-hyphens: none;
--webkit-hyphens: none;
-}
-/* Sobre mí: primera frase sin justificar */
-#sobre-mi p:first-of-type {
-  text-align: left;
+    text-align: justify;
+    hyphens: none;
+    -webkit-hyphens: none;
 }
 
-/* Sobre mí: resto de los párrafos justificados en ordenador */
-#sobre-mi p:not(:first-of-type) {
-  text-align: justify;
-  hyphens: none;
-  -webkit-hyphens: none;
-}
 
-/* En móviles, todo el texto alineado a la izquierda */
-@media (max-width: 600px) {
-  #sobre-mi p {
-    text-align: left;
-  }
+/* ========================================
+   14. ACCESIBILIDAD
+   ======================================== */
+
+/* Reducir el desplazamiento animado si el usuario lo solicita */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
 }
