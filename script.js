@@ -1,5 +1,78 @@
 const b = document.getElementById("burger");
 const m = document.getElementById("menu");
+const themeToggles = document.querySelectorAll(".theme-toggle");
+const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
+
+function updateThemeToggle() {
+  const manualTheme = document.documentElement.dataset.theme;
+  const isDark = manualTheme ? manualTheme === "dark" : systemTheme.matches;
+
+  themeToggles.forEach((toggle) => {
+    toggle.dataset.mode = isDark ? "dark" : "light";
+    toggle.setAttribute("aria-pressed", String(isDark));
+    toggle.title = isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro";
+  });
+}
+
+updateThemeToggle();
+themeToggles.forEach((toggle) => {
+  toggle.addEventListener("click", () => {
+    const nextTheme = toggle.dataset.mode === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = nextTheme;
+    updateThemeToggle();
+
+    try {
+      localStorage.setItem("portfolio-theme", nextTheme);
+    } catch {}
+
+    if (m.classList.contains("open")) {
+      m.classList.remove("open");
+      b.setAttribute("aria-expanded", "false");
+      b.focus();
+    }
+  });
+});
+
+systemTheme.addEventListener("change", () => {
+  if (!document.documentElement.dataset.theme) {
+    updateThemeToggle();
+  }
+});
+
+const mobileProjectCopy = window.matchMedia("(max-width: 600px)");
+const projectMoreDetails = [];
+
+document.querySelectorAll(".project .info").forEach((info) => {
+  const copyNodes = [...info.children].filter((child) => child.tagName !== "H3");
+
+  if (copyNodes.length < 2) return;
+
+  const firstParagraph = copyNodes.shift();
+  const details = document.createElement("details");
+  const summary = document.createElement("summary");
+  const extraCopy = document.createElement("div");
+
+  details.className = "project-more";
+  summary.textContent = "Leer más";
+  extraCopy.className = "project-more-content";
+
+  copyNodes.forEach((node) => extraCopy.append(node));
+  details.append(summary, extraCopy);
+  info.append(details);
+  details.open = !mobileProjectCopy.matches;
+
+  details.addEventListener("toggle", () => {
+    summary.textContent = details.open ? "Leer menos" : "Leer más";
+  });
+
+  projectMoreDetails.push(details);
+});
+
+mobileProjectCopy.addEventListener("change", (event) => {
+  projectMoreDetails.forEach((details) => {
+    details.open = !event.matches;
+  });
+});
 
 b.addEventListener("click", () => {
   const o = m.classList.toggle("open");
