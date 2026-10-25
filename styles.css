@@ -79,6 +79,23 @@ a {
    2. MENÚ DE NAVEGACIÓN
    ======================================== */
 
+.scroll-progress {
+    position: fixed;
+    inset: env(safe-area-inset-top, 0px) 0 auto;
+    z-index: 30;
+    height: 3px;
+    pointer-events: none;
+}
+
+.scroll-progress span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--yellow);
+    transform: scaleX(0);
+    transform-origin: left center;
+}
+
 nav {
     position: fixed;
     inset: 0 0 auto;
@@ -122,6 +139,14 @@ nav ul a {
 
 nav ul a:hover {
     border-color: var(--yellow);
+}
+
+nav ul a.active {
+    border-bottom-color: transparent;
+    text-decoration: underline;
+    text-decoration-color: var(--yellow);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.35em;
 }
 
 nav ul .sep {
@@ -212,19 +237,106 @@ nav ul .sep {
     margin: 1rem 0 3.5rem;
 }
 
+.hero-title-line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+}
+
+.hero-title-line > span {
+    display: block;
+    opacity: 0;
+    transform: translateY(105%);
+    animation: hero-line-in 800ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.hero-title-line:nth-child(1) > span {
+    animation-delay: 100ms;
+}
+
+.hero-title-line:nth-child(2) > span {
+    animation-delay: 320ms;
+}
+
 .hero h1 em {
+    position: relative;
+    display: inline-block;
+    isolation: isolate;
     font-style: italic;
-    text-decoration: underline;
-    text-decoration-color: var(--yellow);
-    text-decoration-thickness: 0.11em;
-    text-underline-offset: 0.06em;
-    text-decoration-skip-ink: none;
+    text-decoration: none;
+}
+
+.hero h1 em::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    right: 0;
+    bottom: 0.04em;
+    left: 0;
+    height: 0.11em;
+    background: var(--yellow);
+    transform: scaleX(0);
+    transform-origin: left center;
+    animation: hero-underline-in 700ms cubic-bezier(0.2, 0.7, 0.2, 1) 1.05s forwards;
+}
+
+@keyframes hero-line-in {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes hero-underline-in {
+    to {
+        transform: scaleX(1);
+    }
 }
 
 .hero p {
     font: italic 1.5rem/1.35 var(--serif);
     margin: 0;
     letter-spacing: 0.04em;
+}
+
+/* Franja tipográfica entre la presentación y los proyectos */
+.marquee {
+    overflow: hidden;
+    padding: 0.3rem 0;
+    background: var(--yellow);
+    color: #1D1D1B;
+}
+
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee-scroll 32s linear infinite;
+}
+
+.marquee-group {
+    display: flex;
+    flex: 0 0 auto;
+    min-width: 100vw;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: space-around;
+    gap: clamp(0.4rem, 1vw, 1rem);
+    white-space: nowrap;
+    font: 500 clamp(1.05rem, 2vw, 1.65rem)/1.1 var(--serif);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.marquee-group > span {
+    flex: 1 0 auto;
+    text-align: center;
+}
+
+@keyframes marquee-scroll {
+    to {
+        transform: translateX(-50%);
+    }
 }
 
 
@@ -365,7 +477,7 @@ nav ul .sep {
 }
 
 @media (max-width: 600px) {
-    #sobre-mi p {
+    #sobre-mi p:not(:first-of-type) {
         text-align: left;
     }
 }
@@ -442,6 +554,7 @@ nav ul .sep {
     height: auto;
     border-radius: 3px;
 }
+
 
 /* Texto descriptivo */
 
@@ -530,6 +643,16 @@ footer small {
 .vgrid {
     display: grid;
     gap: 1rem;
+}
+
+@media (min-width: 900px) {
+    .vgrid {
+        grid-template-columns: 3fr 2fr;
+    }
+
+    .v.big {
+        grid-row: span 2;
+    }
 }
 
 .v {
@@ -630,6 +753,30 @@ footer small {
 
 #lb.open {
     display: flex;
+    animation: lightbox-backdrop-in 280ms ease-out both;
+}
+
+@keyframes lightbox-backdrop-in {
+    from {
+        background-color: rgba(18, 18, 16, 0);
+    }
+
+    to {
+        background-color: rgba(18, 18, 16, 0.95);
+    }
+}
+
+#lb img.lb-image-hidden {
+    opacity: 0;
+}
+
+#lb .lb-zoom-clone {
+    position: fixed;
+    z-index: 1;
+    max-width: none;
+    max-height: none;
+    padding: 0;
+    pointer-events: none;
 }
 
 /* Imagen ampliada */
@@ -645,6 +792,7 @@ footer small {
 
 #lb button {
     position: absolute;
+    z-index: 2;
     width: 2.9rem;
     height: 2.9rem;
     background: rgba(246, 243, 228, 0.16);
@@ -684,6 +832,7 @@ footer small {
 
 #lb .ct {
     position: absolute;
+    z-index: 2;
     bottom: calc(1.2rem + env(safe-area-inset-bottom, 0px));
     left: 0;
     right: 0;
@@ -848,6 +997,11 @@ footer small {
     .p-head {
         grid-template-columns: auto 1fr auto;
         gap: 3rem;
+        align-items: start;
+    }
+
+    .p-head .tags {
+        align-self: end;
     }
 
     .p-body {
@@ -911,5 +1065,45 @@ footer small {
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
+    }
+
+    .hero-title-line > span {
+        opacity: 1;
+        transform: none;
+        animation: none;
+    }
+
+    .hero h1 em::after {
+        transform: scaleX(1);
+        animation: none;
+    }
+}
+
+/* Apariciones al entrar en pantalla */
+.scroll-reveal-ready .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+        opacity 600ms ease,
+        transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+}
+
+.scroll-reveal-ready .reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scroll-reveal-ready .reveal-on-scroll {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+        animation: none;
     }
 }
