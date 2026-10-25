@@ -1477,17 +1477,6 @@ footer small {
     #p1 .gal .madrid-order-8 { order: 8; }
     #p1 .gal .madrid-order-9 { order: 9; }
 
-    #p4 .gal {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0.65rem;
-    }
-
-    #p4 .gal .th:last-child {
-        grid-column: 1 / -1;
-        width: calc((100% - 0.65rem) / 2);
-        justify-self: center;
-    }
-
     #p3 .gal {
         columns: initial;
         display: grid;
@@ -1523,6 +1512,30 @@ footer small {
 
     #p5 .iberia-gal .tres-columnas {
         grid-column: span 2;
+    }
+
+    #p6 .stereo-gallery {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 0.65rem;
+    }
+
+    #p6 .stereo-gallery-column {
+        display: contents;
+    }
+
+    #p6 .stereo-gallery .th {
+        grid-column: 1 / -1;
+        margin: 0;
+    }
+
+    #p6 .stereo-gallery .stereo-pair {
+        grid-column: span 3;
+    }
+
+    #p6 .stereo-gallery .stereo-pair img {
+        width: 100%;
+        max-width: 100%;
+        margin-left: 0;
     }
 }
 
