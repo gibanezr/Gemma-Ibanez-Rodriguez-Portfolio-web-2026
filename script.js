@@ -29,10 +29,12 @@ if (copyEmailButton) {
       }
 
       copyEmailButton.textContent = "¡Copiado!";
+      copyEmailButton.classList.add("copied");
       copyEmailStatus.textContent = "Correo copiado al portapapeles.";
       window.clearTimeout(copyEmailButton.feedbackTimer);
       copyEmailButton.feedbackTimer = window.setTimeout(() => {
         copyEmailButton.textContent = "Copiar correo";
+        copyEmailButton.classList.remove("copied");
         copyEmailStatus.textContent = "";
       }, 1800);
     } catch {
