@@ -387,6 +387,7 @@ nav ul .sep {
     font: italic 1.5rem/1.35 var(--serif);
     margin: 0;
     letter-spacing: 0.04em;
+    color: var(--muted);
 }
 
 /* Franja tipográfica entre la presentación y los proyectos */
@@ -504,6 +505,16 @@ nav ul .sep {
 .facts-block li {
     padding: 0.4rem 0;
     border-bottom: 1px solid var(--line);
+}
+
+/* Ajusta la altura de Software a Formación */
+.about .cols > .facts-block:nth-child(2) li {
+    padding-block: 0.53rem;
+}
+
+/* Mantiene las dos listas de Contacto alineadas */
+.about .cols > .facts-block:nth-child(3) .contact li {
+    padding-block: 0.65rem;
 }
 
 .facts-block a {
@@ -643,6 +654,62 @@ nav ul .sep {
     height: auto;
     border-radius: 3px;
 }
+
+/* Portadas animadas de los logotipos */
+.logo-main {
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border: 0;
+    border-radius: 3px;
+    background: transparent;
+    cursor: zoom-in;
+}
+
+#p1 .logo-main--city {
+    width: min(100%, 22rem);
+    aspect-ratio: 3 / 4;
+    justify-self: center;
+}
+
+#p6 .logo-main--stereo {
+    aspect-ratio: 4 / 3;
+}
+
+#p1 .logo-main img {
+    width: 88%;
+    height: 82%;
+    object-fit: contain;
+    border-radius: 0;
+}
+
+#p6 .logo-main img {
+    width: 88%;
+    height: 88%;
+    object-fit: contain;
+    border-radius: 0;
+}
+
+/* En oscuro, el escudo pasa a blanco y ESTÉREO a su amarillo corporativo. */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) #p1 .logo-main--city img {
+        filter: brightness(0) invert(1);
+    }
+
+    :root:not([data-theme="light"]) #p6 .logo-main--stereo img {
+        filter: brightness(0) saturate(100%) invert(78%) sepia(94%) saturate(1300%) hue-rotate(354deg) brightness(101%) contrast(105%);
+    }
+}
+
+:root[data-theme="dark"] #p1 .logo-main--city img {
+    filter: brightness(0) invert(1);
+}
+
+:root[data-theme="dark"] #p6 .logo-main--stereo img {
+    filter: brightness(0) saturate(100%) invert(78%) sepia(94%) saturate(1300%) hue-rotate(354deg) brightness(101%) contrast(105%);
+}
+
+
 
 
 /* Texto descriptivo */
@@ -956,6 +1023,10 @@ footer small {
         grid-template-columns: 3fr 2fr;
     }
 
+    #p6 .vgrid {
+        grid-template-columns: 7fr 3fr;
+    }
+
     .v.big {
         grid-row: span 2;
     }
@@ -1092,6 +1163,54 @@ footer small {
 .gal .th {
     break-inside: avoid;
     margin: 0 0 1rem;
+}
+
+/* Gris mate visible alrededor de las imágenes con lienzo claro. */
+#p1 .iphone-matte,
+#p6 .spread-matte {
+    padding: 1.5rem;
+    background: #D2D2D2;
+}
+
+#p6 .spread-matte img {
+    mix-blend-mode: normal;
+}
+
+#p6 .stereo-gallery {
+    columns: initial;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 1rem;
+}
+
+#p6 .stereo-gallery-column {
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+    min-width: 0;
+}
+
+#p6 .stereo-gallery .th {
+    margin: 0;
+}
+
+#p6 .stereo-gallery-column:last-child .th img {
+    width: 112%;
+    max-width: none;
+    margin-left: -6%;
+}
+
+@media (max-width: 800px) {
+    #p6 .stereo-gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    #p6 .stereo-gallery {
+        grid-template-columns: 1fr;
+    }
 }
 
 
@@ -1231,11 +1350,11 @@ footer small {
    11. PROYECTO VINOS (P2)
    ======================================== */
 
-/* Galería de cinco columnas */
+/* Galería de cuatro columnas */
 
 #p2 .gal {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 1rem;
 }
 
@@ -1385,6 +1504,25 @@ footer small {
     #p3 .p-body,
     #p5 .p-body {
         grid-template-columns: 5fr 7fr;
+    }
+
+    #p1 .p-body {
+        align-items: stretch;
+    }
+
+    #p1 .logo-main--city {
+        aspect-ratio: auto;
+        align-self: stretch;
+    }
+
+    #p1 .logo-main--city img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: auto;
+        height: 104%;
+        max-width: none;
+        transform: translate(-50%, -50%);
     }
 
     #p1 .info,

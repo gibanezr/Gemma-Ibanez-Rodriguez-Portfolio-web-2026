@@ -361,6 +361,21 @@ if ("IntersectionObserver" in window && !reduceMotion) {
   );
 
   revealItems.forEach((item) => revealObserver.observe(item));
+
+  // Inicia el escudo al entrar en pantalla, no antes mientras la persona lee.
+  const cityMark = document.querySelector("#p1 .logo-main--city img");
+  if (cityMark) {
+    const cityMarkObserver = new IntersectionObserver(
+      (entries, observer) => {
+        if (entries[0].isIntersecting) {
+          cityMark.src = cityMark.dataset.animatedSrc;
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.25 },
+    );
+    cityMarkObserver.observe(cityMark);
+  }
 }
 
 // Indicador de sección actual y progreso de lectura.
