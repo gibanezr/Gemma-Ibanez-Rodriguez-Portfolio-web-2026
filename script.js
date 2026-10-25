@@ -3,6 +3,44 @@ const m = document.getElementById("menu");
 const themeToggles = document.querySelectorAll(".theme-toggle");
 const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
 
+const copyEmailButton = document.querySelector("[data-copy-email]");
+const copyEmailStatus = document.getElementById("copy-email-status");
+
+if (copyEmailButton) {
+  copyEmailButton.addEventListener("click", async () => {
+    const email = document.querySelector("footer .mail")?.href.replace(/^mailto:/, "");
+
+    if (!email) return;
+
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(email);
+      } else {
+        const temporaryInput = document.createElement("textarea");
+        temporaryInput.value = email;
+        temporaryInput.setAttribute("readonly", "");
+        temporaryInput.style.position = "fixed";
+        temporaryInput.style.opacity = "0";
+        document.body.append(temporaryInput);
+        temporaryInput.select();
+        const copied = document.execCommand("copy");
+        temporaryInput.remove();
+        if (!copied) throw new Error("No se pudo copiar el correo.");
+      }
+
+      copyEmailButton.textContent = "¡Copiado!";
+      copyEmailStatus.textContent = "Correo copiado al portapapeles.";
+      window.clearTimeout(copyEmailButton.feedbackTimer);
+      copyEmailButton.feedbackTimer = window.setTimeout(() => {
+        copyEmailButton.textContent = "Copiar correo";
+        copyEmailStatus.textContent = "";
+      }, 1800);
+    } catch {
+      copyEmailStatus.textContent = "No se pudo copiar. Puedes seleccionar el correo y copiarlo manualmente.";
+    }
+  });
+}
+
 function updateThemeToggle() {
   const manualTheme = document.documentElement.dataset.theme;
   const isDark = manualTheme ? manualTheme === "dark" : systemTheme.matches;
