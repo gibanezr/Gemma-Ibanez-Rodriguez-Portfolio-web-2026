@@ -1639,6 +1639,23 @@ footer small {
     -webkit-hyphens: none;
 }
 
+@media (max-width: 600px) {
+    .project .info p {
+        text-align: left;
+    }
+
+    #p1 .logo-main--city,
+    #p6 .logo-main--stereo {
+        justify-self: center;
+        margin-inline: auto;
+    }
+
+    #p1 .logo-main--city img,
+    #p6 .logo-main--stereo img {
+        margin-inline: auto;
+    }
+}
+
 
 /* ========================================
    14. ACCESIBILIDAD
